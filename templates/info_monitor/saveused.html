@@ -1,0 +1,22 @@
+{% extends "base.html"  %}
+{% block content %}
+    <form method="post" action=".">
+    {% csrf_token %}
+    <input type="search" placeholder="enter zipcode"  name="search zipcode">
+    <input type="submit" title="submit">
+    </form>
+
+   <ul></ul>
+    <form  method="post" action=".">
+    {% csrf_token %}
+       <input type="text" name="zipcode"  title="zipcode" placeholder="zipcode"> <br>
+        <br>
+      <input type="text" name="full_name" placeholder="name"> <br>
+        <br>
+      <input type="text" name="middlename" placeholder="middle name"> <br>
+        <br>
+       <input type="number" name="age" placeholder="age" > <br>
+
+       <input type="submit" title="submit">
+    </form>
+{% endblock %}
