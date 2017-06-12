@@ -1,22 +1,46 @@
 {% extends "base.html"  %}
 {% block content %}
-    <form method="post" action=".">
+    <form  method="post" action="{% url 'search_if_name_is_use'  %}">
     {% csrf_token %}
-    <input type="search" placeholder="enter zipcode"  name="search zipcode">
-    <input type="submit" title="submit">
+       <input type="text" name="zipcode"  title="zipcode" placeholder="zipcode">
+
+      <input type="text" name="f_name" placeholder="first name">
+      <input type="text" name="l_name" placeholder="last name">
+      <input type="text" name="middlename" placeholder="middle name">
+
+       <input type="number" name="age" placeholder="age" >
+
+       <input type="submit" value="perform search" >
     </form>
 
+
+   <div>
+       {% if present %}
+       {% for rec in records %}
+        {{rec.l_name}}
+       {{rec.f_name}}
+       {{rec.middlename}}
+       {{rec.address}}
+       {% endfor %}
+       {% endif %}
+
+
+   </div>
+
    <ul></ul>
+<ul></ul>
+<ul></ul>
     <form  method="post" action=".">
     {% csrf_token %}
-       <input type="text" name="zipcode"  title="zipcode" placeholder="zipcode"> <br>
-        <br>
-      <input type="text" name="full_name" placeholder="name"> <br>
-        <br>
-      <input type="text" name="middlename" placeholder="middle name"> <br>
-        <br>
-       <input type="number" name="age" placeholder="age" > <br>
+       <input type="text" name="zipcode"  title="zipcode" placeholder="zipcode" pattern="\d{5}"> <br>
 
-       <input type="submit" title="submit">
+       <input type="text" name="f_name" placeholder="first name" pattern="[a-z]+" > <br>
+      <input type="text" name="l_name" placeholder="last name" pattern="[a-z]+" > <br>
+      <input type="text" name="middlename" placeholder="middle name" pattern="[a-z]*"> <br>
+
+       <input type="number" name="age" placeholder="age" > <br>
+       <input type="text" name="address" placeholder="address"  pattern="[a-z]"> <br>
+       <input type="url" name="links" placeholder="url address"  pattern="[a-z]"> <br>
+        <input type="submit" title="submit">
     </form>
 {% endblock %}
