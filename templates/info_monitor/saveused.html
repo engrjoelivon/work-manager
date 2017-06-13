@@ -17,10 +17,11 @@
    <div>
        {% if present %}
        {% for rec in records %}
-        {{rec.l_name}}
+       {{rec.l_name}}
        {{rec.f_name}}
        {{rec.middlename}}
        {{rec.address}}
+       {{rec.links}}
        {% endfor %}
        {% endif %}
 
@@ -34,13 +35,13 @@
     {% csrf_token %}
        <input type="text" name="zipcode"  title="zipcode" placeholder="zipcode" pattern="\d{5}"> <br>
 
-       <input type="text" name="f_name" placeholder="first name" pattern="[a-z]+" > <br>
-      <input type="text" name="l_name" placeholder="last name" pattern="[a-z]+" > <br>
-      <input type="text" name="middlename" placeholder="middle name" pattern="[a-z]*"> <br>
+       <input type="text" name="f_name" placeholder="first name" > <br> <!--pattern="[a-z]+" -->
+      <input type="text" name="l_name" placeholder="last name"  > <br>
+      <input type="text" name="middlename" placeholder="middle name"  > <br>
 
        <input type="number" name="age" placeholder="age" > <br>
        <input type="text" name="address" placeholder="address"  pattern="[a-z]"> <br>
-       <input type="url" name="links" placeholder="url address"  pattern="[a-z]"> <br>
+       <input type="text" name="links" placeholder="url address"  > <br>
         <input type="submit" title="submit">
     </form>
 {% endblock %}

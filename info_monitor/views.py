@@ -29,11 +29,11 @@ class ManageInfos(TemplateView):
         if form.is_valid():
             print("it is valid")
             form.save()
-            return HttpResponse("done")
+            return HttpResponse("successfully saved")
 
         else:
             messages.error(request, "Error")
-            print("it is invalid")
+            return HttpResponse("Because of error could not save info")
         return render(request, "info_monitor/saveused.html", {"form": SaveUsedInfoForm()})
 
 
@@ -53,35 +53,21 @@ def search_if_name_is_used(request):
 
 
     if zipcodes and firstname and lastname and mname and age  is not "":
-        print("with age",age)
-        queryset = Infos.objects.filter(f_name=purify_text(firstname), l_name=purify_text(lastname), middlename=mname,
-                                        zipcode=zipcodes,age=age)
+        queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip(), middlename__iexact=mname.strip(),
+                                        zipcode=zipcodes.strip(),age=age.strip())
         if queryset:
             is_query = True
 
     elif zipcodes and firstname and lastname and mname  is not "":
-        print("with middlename")
-        queryset = Infos.objects.filter(f_name=purify_text(firstname), l_name=purify_text(lastname),middlename=mname, zipcode=zipcodes)
+
+        queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip(),middlename__iexact=mname.strip(), zipcode=zipcodes.strip())
         if queryset:
             is_query=True
     elif zipcodes and firstname and lastname  is not "":
 
-        queryset=Infos.objects.filter(f_name=purify_text(firstname),l_name=purify_text(lastname),zipcode=zipcodes)
-        print("no middlename")
-        print(queryset)
+        queryset=Infos.objects.filter(f_name__iexact=firstname.strip(),l_name__iexact=lastname.strip(),zipcode=zipcodes.strip())
         if queryset:
             is_query=True
-
-
-
-
-
-    elif zipcodes and firstname and lastname and mname and age  is not "":
-        queryset = Infos.objects.filter(f_name=purify_text(firstname), l_name=purify_text(lastname), middlename=mname,
-                                        zipcode=zipcodes,age=age)
-        if queryset:
-            is_query = True
-
 
     return render(request,"info_monitor/saveused.html",context={"present":is_query,"records":queryset})
 
