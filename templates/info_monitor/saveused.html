@@ -12,7 +12,7 @@
 
        <input type="submit" value="perform search" >
     </form>
-
+    <ul></ul>
 
    <div>
        {% if present %}
@@ -24,6 +24,10 @@
        {{rec.links}}
        {% endfor %}
        {% endif %}
+   <ul></ul>
+    {% if form %}
+        <h4>{{ form.errors }}</h4>
+   {% endif %}
 
 
    </div>
@@ -31,17 +35,13 @@
    <ul></ul>
 <ul></ul>
 <ul></ul>
+
+
+
     <form  method="post" action=".">
-    {% csrf_token %}
-       <input type="text" name="zipcode"  title="zipcode" placeholder="zipcode" pattern="\d{5}"> <br>
-
-       <input type="text" name="f_name" placeholder="first name" > <br> <!--pattern="[a-z]+" -->
-      <input type="text" name="l_name" placeholder="last name"  > <br>
-      <input type="text" name="middlename" placeholder="middle name"  > <br>
-
-       <input type="number" name="age" placeholder="age" > <br>
-       <input type="text" name="address" placeholder="address"  pattern="[a-z]"> <br>
-       <input type="text" name="links" placeholder="url address"  > <br>
+        {% csrf_token %}
+        {{ form }}
         <input type="submit" title="submit">
+
     </form>
 {% endblock %}

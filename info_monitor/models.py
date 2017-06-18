@@ -10,7 +10,7 @@ class Infos(models.Model):
 
     age=models.PositiveSmallIntegerField(default=0,blank=True,null=True)
     address = models.CharField(max_length=100,blank=True)
-    links=models.CharField(max_length=500,blank=True)
+    links=models.TextField(blank=True)
 
 
     def __str__(self):

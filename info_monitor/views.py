@@ -21,7 +21,7 @@ class ManageInfos(TemplateView):
     def get(self, request):
         # <view logic>
         print("get")
-        return render(request, "info_monitor/saveused.html")
+        return render(request, "info_monitor/saveused.html",{"form": SaveUsedInfoForm()})
 
     def post(self, request):
         form = SaveUsedInfoForm(request.POST)
@@ -31,10 +31,10 @@ class ManageInfos(TemplateView):
             form.save()
             return HttpResponse("successfully saved")
 
-        else:
-            messages.error(request, "Error")
-            return HttpResponse("Because of error could not save info")
-        return render(request, "info_monitor/saveused.html", {"form": SaveUsedInfoForm()})
+
+            #messages.error(request, "Error")
+            #return HttpResponse("Because of error could not save info")
+        return render(request, "info_monitor/saveused.html", {"form": form})
 
 
 
