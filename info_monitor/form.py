@@ -8,7 +8,7 @@ class SaveUsedInfoForm(forms.ModelForm):
     l_name=forms.CharField(label="Lastname")
     middlename= forms.CharField(label="Middlename",required=False)
     address = forms.CharField(label="Address",required=False)
-    age =forms.IntegerField(label="Age",required=False,max_value=100)
+    age =forms.IntegerField(label="Age",required=False,max_value=100,initial=0)
     links=forms.URLField(max_length=1000,required=False)
 
 

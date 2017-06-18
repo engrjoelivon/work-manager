@@ -5,7 +5,10 @@ from info_monitor.form import SaveUsedInfoForm
 from info_monitor.models import Infos
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.forms.models  import model_to_dict
 from info_monitor.models import Infos
+
+import json
 # Create your views here.
 class AddUsedInfo(CreateView):
     template_name = "info_monitor/saveused.html"
@@ -20,7 +23,8 @@ class AddUsedInfo(CreateView):
 class ManageInfos(TemplateView):
     def get(self, request):
         # <view logic>
-        print("get")
+        #print("get")
+        #Get_all_records()
         return render(request, "info_monitor/saveused.html",{"form": SaveUsedInfoForm()})
 
     def post(self, request):
@@ -69,7 +73,7 @@ def search_if_name_is_used(request):
         if queryset:
             is_query=True
 
-    return render(request,"info_monitor/saveused.html",context={"present":is_query,"records":queryset})
+    return render(request,"info_monitor/saveused.html",context={"present":is_query,"records":queryset,"form": SaveUsedInfoForm()})
 
 
 
@@ -77,3 +81,25 @@ def search_if_name_is_used(request):
 
 def purify_text(text):
     return text.lower().strip()
+
+
+
+
+
+
+class Get_all_records():
+
+
+    def __init__(self):
+     rec_query=   Infos.objects.all()
+     self.list_of_rec=[]
+     for rec in rec_query:
+             self.list_of_rec.append(model_to_dict(rec,["zipcode","f_name","l_name","middlename","age","address","links"]))
+     self.convert_to_json(self.list_of_rec)
+
+    def convert_to_json(self,arg):
+         json.dumps(arg)
+
+
+    def  send_files_to_remote(self):
+        pass
