@@ -1,5 +1,18 @@
 {% extends "base.html"  %}
+{% load static %}
+
+
 {% block content %}
+<ul>
+    <li><a  href="{% url 'homepage' %} ">Home</a></li>
+    <li><a class="active" href="{% url 'home' %}">Used info</a></li>
+
+  <li><a href="{% url 'home' %}">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li style="float:right"><a href="#about">About</a></li>
+</ul>
+
+
 <h2> Search Info </h2>
     <form  method="post" action="{% url 'search_if_name_is_use'  %}">
     {% csrf_token %}
@@ -41,11 +54,12 @@
                             Address
                         </td>
 
-                        <td>
-                            Url
-                        </td>
+
                         <td>
                             Age
+                        </td>
+                        <td>
+                            Url
                         </td>
                     </tr>
 
@@ -67,10 +81,11 @@
                             {{rec.address}}
                         </td>
                         <td>
-                            {{rec.links}}
-                        </td>
-                        <td>
                             {{rec.age}}
+                        </td>
+
+                        <td>
+                            {{rec.links}}
                         </td>
 
                     </tr>
@@ -83,15 +98,40 @@
 
 <h2> Enter Info </h2>
 
- <form  method="post" action="." class="formclass">
+ <form  method="post" action="." class="formclass" enctype="multipart/form-data">
         {% csrf_token %}
+   <table>
+       <tr>
+           <td>
+            <label  > zipcode  </label>
+           </td> <td> {{form.zipcode }}</td>
+       </tr>
+       <tr><td><label> first name  </label></td><td>{{form.f_name}}</td><td>{{form.f_name.errors}}</td></tr>
+       <tr><td><label> last name  </label></td><td>{{form.l_name  }}</td></tr>
+       <tr><td><label> middle name  </label></td><td> {{form.middlename }}</td></tr>
+       <tr><td><label>  age  </label></td><td> {{form.age }}</td></tr>
+       <tr> <td> <label> dob </label> </td> <td> {{form.dob }} </td> </tr>
+       <tr><td> <label> Address </label> </td><td> {{form.address }} </td></tr>
+       <tr> <td> <label> links </label> </td> <td> {{form.links }} </td> </tr>
+       <tr> <td> <label> where </label> </td> <td> {{form.where }} </td> </tr>
+       <tr> <td> <label> status </label> </td> <td> {{form.status }} </td> </tr>
+       <tr> <td> <label> files </label> </td> <td> {{form.myfile }} </td> </tr>
+
+   </table>
+
+           <!--  {{form.as_p}} -->
 
 
 
-       {{ form.as_p}}
 
 
-        <input type="submit" title="submit">
+
+
+
+
+
+        <input type="submit" title="SUBMIT" value="SUBMIT" >
+
 
     </form>
    </br>

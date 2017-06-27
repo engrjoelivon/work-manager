@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'info_monitor.apps.InfoMonitorConfig',
+    'info_monitor',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +119,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-print("static is ",STATICFILES_DIRS)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+
+]
+STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+MEDIA_URL= '/media/'
+MEDIA_ROOT= '/media/'
+#print("static is ",STATICFILES_DIRS)

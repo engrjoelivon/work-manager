@@ -1,9 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import CreateView,TemplateView
 from info_monitor.form import SaveUsedInfoForm
 from info_monitor.models import Infos
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from django.contrib import messages
 from django.forms.models  import model_to_dict
 from info_monitor.models import Infos
@@ -28,12 +28,12 @@ class ManageInfos(TemplateView):
         return render(request, "info_monitor/saveused.html",{"form": SaveUsedInfoForm()})
 
     def post(self, request):
-        form = SaveUsedInfoForm(request.POST)
+        form = SaveUsedInfoForm(request.POST,request.FILES)
 
         if form.is_valid():
-            print("it is valid")
+
             form.save()
-            return HttpResponse("successfully saved")
+            return HttpResponseRedirect(reverse('success'))
 
 
             #messages.error(request, "Error")
@@ -53,26 +53,54 @@ def search_if_name_is_used(request):
     lastname = request.POST.get("l_name")
     age = request.POST.get("age")
 
+    try:
 
 
-
-    if zipcodes and firstname and lastname and mname and age  is not "":
-        queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip(), middlename__iexact=mname.strip(),
+        if zipcodes and firstname and lastname and mname and age  is not "":
+            queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip(), middlename__iexact=mname.strip(),
                                         zipcode=zipcodes.strip(),age=age.strip())
-        if queryset:
-            is_query = True
+            if queryset:
+                is_query = True
 
-    elif zipcodes and firstname and lastname and mname  is not "":
+        elif zipcodes and firstname and lastname and mname  is not "":
 
-        queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip(),middlename__iexact=mname.strip(), zipcode=zipcodes.strip())
-        if queryset:
-            is_query=True
-    elif zipcodes and firstname and lastname  is not "":
+            queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip(),middlename__iexact=mname.strip(), zipcode=zipcodes.strip())
+            if queryset:
+                is_query=True
 
-        queryset=Infos.objects.filter(f_name__iexact=firstname.strip(),l_name__iexact=lastname.strip(),zipcode=zipcodes.strip())
-        if queryset:
-            is_query=True
+        elif firstname and lastname and age  is not "":
 
+            queryset=Infos.objects.filter(f_name__iexact=firstname.strip(),l_name__iexact=lastname.strip(),age=age.strip())
+            if queryset:
+                is_query=True
+
+
+        elif firstname and lastname and mname is not "":
+
+            queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip(),middlename__iexact=mname.strip())
+            if queryset:
+                is_query = True
+
+        elif firstname and lastname  is not "":
+
+            queryset = Infos.objects.filter(f_name__iexact=firstname.strip(), l_name__iexact=lastname.strip())
+            if queryset:
+                is_query = True
+        elif zipcodes is not "":
+           queryset=Infos.objects.filter(zipcode=zipcodes.strip())
+           if queryset:
+                is_query=True
+
+        else:
+            queryset = Infos.objects.all()
+            if queryset:
+                is_query=True
+
+
+    except AttributeError:
+        pass
+    except:
+        pass
     return render(request,"info_monitor/saveused.html",context={"present":is_query,"records":queryset,"form": SaveUsedInfoForm()})
 
 

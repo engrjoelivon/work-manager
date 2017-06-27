@@ -1,5 +1,18 @@
-{% extends "base.html" %}
+{% extends "base.html"  %}
+{% load static %}
+   {% block title %} Home Page {% endblock%}
 
 {% block content %}
+
+<ul>
+    <li><a  href="{% url 'homepage' %} ">Home</a></li>
+    <li><a  href="{% url 'home' %}">Used info</a></li>
+
+  <li><a href="{% url 'home' %}">News</a></li>
+  <li><a class="active" href="#contact">Success</a></li>
+  <li style="float:right"><a href="#about">About</a></li>
+</ul>
+
+
     Zipcode Successfully Added
 {% endblock %}

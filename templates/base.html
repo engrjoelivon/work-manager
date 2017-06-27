@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-  <title> {% block title %}Title {% endblock %} </title>
-    <link rel="stylesheet" type="text/css" href="http://localhost:8000/static/css/info_monitor/populate.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/static/css/info_monitor/form.css" media="screen">
+  <title>  {% block title %}Title {% endblock %} </title>
+    <link rel="stylesheet" type="text/css" href="/static/css/info_monitor/populate.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="{% static '/css/info_monitor/form.css' %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/nav-bar.css' %}" media="screen">
 
 </head>
 <body>
@@ -14,7 +15,7 @@
 
 {% block content %} {% endblock %}
 
-
+{% block footer %} {% endblock %}
 
 
 </body>

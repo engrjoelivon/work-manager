@@ -1,17 +1,22 @@
 from django import forms
+from django.forms import SelectDateWidget
+
 from info_monitor.models import Infos
 
 
 class SaveUsedInfoForm(forms.ModelForm):
-    zipcode=forms.IntegerField(label="Zipcode",max_value=99999)
-    f_name = forms.CharField(label="Firstname")
+    BIRTH_YEAR_CHOICES = ['1949','1950', '1951', '1952','1953','1954','1955']
+    zipcode=forms.IntegerField(label="Zipcode",max_value=99999,widget=forms.NumberInput,help_text="must be filled")
+    f_name = forms.CharField(label="Firstname",widget=forms.TextInput)
     l_name=forms.CharField(label="Lastname")
     middlename= forms.CharField(label="Middlename",required=False)
     address = forms.CharField(label="Address",required=False)
     age =forms.IntegerField(label="Age",required=False,max_value=100,initial=0)
-    links=forms.URLField(max_length=1000,required=False)
-
-
+    links=forms.URLField(max_length=1000,required=False,widget=forms.URLInput)
+    myfile=forms.FileField(required=False,widget=forms.FileInput)
+    where = forms.ChoiceField(widget=forms.Select,choices=Infos().sites_info_obtained,required=False)
+    dob = forms.DateField(widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES),)
+    status =forms.ChoiceField(widget=forms.CheckboxInput,choices=Infos().search_result,help_text="check box if info is found")
 
     def save(self, commit=True):
 
@@ -38,5 +43,5 @@ class SaveUsedInfoForm(forms.ModelForm):
 
     class Meta:
         model = Infos
-        fields = ["zipcode","f_name","l_name","middlename","age","address","links"]
+        fields = ["status","zipcode","f_name","l_name","middlename","age","address","links","myfile","where","dob"]
 
