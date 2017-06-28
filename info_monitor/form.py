@@ -16,7 +16,7 @@ class SaveUsedInfoForm(forms.ModelForm):
     myfile=forms.FileField(required=False,widget=forms.FileInput)
     where = forms.ChoiceField(widget=forms.Select,choices=Infos().sites_info_obtained,required=False)
     dob = forms.DateField(widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES),)
-    status =forms.ChoiceField(widget=forms.CheckboxInput,choices=Infos().search_result,help_text="check box if info is found")
+    status =forms.BooleanField(widget=forms.CheckboxInput,required=False)
 
     def save(self, commit=True):
 

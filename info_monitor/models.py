@@ -15,7 +15,7 @@ class Infos(models.Model):
     myfile=models.FileField(upload_to="media",null=True,blank=True)
     where=models.CharField(choices=sites_info_obtained,max_length=50,null=True)
     dob=models.DateField(null=True,blank=True)
-    status=models.CharField(max_length=20,choices=search_result,null=True)
+    status=models.NullBooleanField(default=False)
     def __str__(self):
         return self.f_name
 

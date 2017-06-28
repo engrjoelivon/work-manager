@@ -31,10 +31,11 @@ class ManageInfos(TemplateView):
         form = SaveUsedInfoForm(request.POST,request.FILES)
 
         if form.is_valid():
-
+            print("it is valid")
             form.save()
             return HttpResponseRedirect(reverse('success'))
-
+        else:
+            print(form.errors)
 
             #messages.error(request, "Error")
             #return HttpResponse("Because of error could not save info")
