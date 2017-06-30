@@ -15,7 +15,7 @@ class SaveUsedInfoForm(forms.ModelForm):
     links=forms.URLField(max_length=1000,required=False,widget=forms.URLInput)
     myfile=forms.FileField(required=False,widget=forms.FileInput)
     where = forms.ChoiceField(widget=forms.Select,choices=Infos().sites_info_obtained,required=False)
-    dob = forms.DateField(widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES),)
+    dob = forms.DateField(widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES),required=False)
     status =forms.BooleanField(widget=forms.CheckboxInput,required=False)
 
     def save(self, commit=True):
@@ -43,5 +43,9 @@ class SaveUsedInfoForm(forms.ModelForm):
 
     class Meta:
         model = Infos
+
         fields = ["status","zipcode","f_name","l_name","middlename","age","address","links","myfile","where","dob"]
+
+
+
 

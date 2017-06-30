@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <TEXTAREA cols="100" rows="50">
+
+      {{data}}
+  </TEXTAREA>
+  <form method="post" action=" {% url 'all' %}">
+      {% csrf_token %}
+      <input type="text" name="records">
+
+      <input type="submit">
+
+
+  </form>
+
+
+</body>
+</html>

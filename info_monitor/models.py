@@ -4,11 +4,11 @@ from django.db import models
 class Infos(models.Model):
     sites_info_obtained=(("retirement","RET"),("CARDING","CD"))
     search_result=(("found","yes"),("not_found","no"))
+
     zipcode=models.PositiveSmallIntegerField(null=False,blank=False)
     f_name = models.CharField(max_length=50, default="")
     l_name = models.CharField(max_length=50, default="")
     middlename=models.CharField(max_length=20,default="",blank=True)
-
     age=models.PositiveSmallIntegerField(default=0,blank=True,null=True)
     address = models.CharField(max_length=100,blank=True)
     links=models.TextField(blank=True)
